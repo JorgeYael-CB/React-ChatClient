@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { IRoute } from '../interfaces/routes';
 import { LinkNav } from './';
+import { envs } from '../config';
 
 
 
@@ -16,11 +17,11 @@ export const NavBar = ( {routes}: {routes: IRoute[]} ) => {
 
   return (
     <>
-      <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+      <nav className="border-gray-200 bg-gray-50">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <NavLink to="#" className="flex items-center space-x-3 rtl:space-x-reverse">
+          <NavLink to="" className="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+            <span className="self-center text-2xl font-bold whitespace-nowrap text-gray-600">{envs.companyName}</span>
           </NavLink>
           <button
             onClick={toggleMenu}
@@ -38,7 +39,7 @@ export const NavBar = ( {routes}: {routes: IRoute[]} ) => {
             className={`${isMenuOpen ? 'block' : 'hidden'} w-full md:block md:w-auto`}
             id="navbar-solid-bg"
           >
-            <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:space-x-6 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
+            <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent bg-gray-100">
               {
                 routes.map( element => (
                   <LinkNav key={element.path} element={element}/>

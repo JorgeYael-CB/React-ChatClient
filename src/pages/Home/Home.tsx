@@ -1,3 +1,4 @@
+import { Hero } from "../../components/Hero"
 
 
 
@@ -7,7 +8,7 @@
 export const Home = () => {
   return (
     <>
-      <h1 className="text-center text-3xl font-black mt-10 text-white">Welcome to Home</h1>
+      <Hero/>
     </>
   )
 }

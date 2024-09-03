@@ -4,6 +4,8 @@ import { IRoute } from "../interfaces/routes";
 import { Login } from "./Auth";
 import { Terms } from "./Terms";
 import { NavBar } from "../components";
+import { Faq } from "./Faq";
+import { Privacy } from "./Privacy";
 
 
 
@@ -17,6 +19,16 @@ export const routes:IRoute[] = [
         path: '/terms',
         element: <Terms/>,
         title: 'Terms'
+    },
+    {
+        path: '/privacy',
+        element: <Privacy/>,
+        title: 'Privacy'
+    },
+    {
+        path: '/faq',
+        element: <Faq/>,
+        title: 'F.A.Q.'
     },
 ];
 
