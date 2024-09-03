@@ -1,8 +1,12 @@
+import { NavBar } from "../../components";
+import { routes } from "../Router";
+
+
 
 export const Home = () => {
   return (
     <>
-      <h1>Hello World 2</h1>
+      <NavBar routes={ routes }/>
     </>
   )
 }
