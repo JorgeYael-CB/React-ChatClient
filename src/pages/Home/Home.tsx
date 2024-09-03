@@ -9,6 +9,9 @@ export const Home = () => {
   return (
     <>
       <Hero/>
+
+      <section>
+      </section>
     </>
   )
 }

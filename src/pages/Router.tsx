@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Home } from "./Home";
 import { IRoute } from "../interfaces/routes";
-import { Login } from "./Auth";
+import { Auth, Login, Register } from "./Auth";
 import { Terms } from "./Terms";
 import { NavBar } from "../components";
 import { Faq } from "./Faq";
@@ -35,9 +35,14 @@ export const routes:IRoute[] = [
 export const routesAuth: IRoute[] = [
     {
         element: <Login/>,
-        path: '/login',
+        path: '/auth/login',
         title: 'Sign in'
-    }
+    },
+    {
+        element: <Register/>,
+        path: '/auth/register',
+        title: 'register'
+    },
 ];
 
 
@@ -47,5 +52,10 @@ export const router = createBrowserRouter([
         path: '',
         element: <NavBar routes={routes}/>,
         children: routes
+    },
+    {
+        path: '/auth',
+        element: <Auth/>,
+        children: routesAuth
     },
 ])
