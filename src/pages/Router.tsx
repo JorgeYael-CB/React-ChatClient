@@ -6,6 +6,7 @@ import { Terms } from "./Terms";
 import { NavBar } from "../components";
 import { Faq } from "./Faq";
 import { Privacy } from "./Privacy";
+import { AuthChat, Chat } from "./Chat";
 
 
 
@@ -46,6 +47,15 @@ export const routesAuth: IRoute[] = [
 ];
 
 
+export const routesChat: IRoute [] = [
+    {
+        element: <Chat/>,
+        path: '/chat/:id',
+        title: 'Chat'
+    }
+];
+
+
 
 export const router = createBrowserRouter([
     {
@@ -58,4 +68,9 @@ export const router = createBrowserRouter([
         element: <Auth/>,
         children: routesAuth
     },
+    {
+        path: '/chat',
+        element: <AuthChat/>,
+        children: routesChat
+    }
 ])

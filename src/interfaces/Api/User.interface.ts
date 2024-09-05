@@ -6,7 +6,7 @@ export type roles = 'ADMIN' | 'USER' | 'SUPER_USER' | 'DEVELOPER';
 export type country = "MX" | "US" | "UK";
 
 export interface UserPreferences extends IDb {
-    User: IUserApi;
+    User: IUser;
     IsEdited: boolean;
     deport: string;
     country: country;
@@ -16,21 +16,23 @@ export interface UserPreferences extends IDb {
 
 export interface IDataUser {
     name: string;
-    email: string;
-    password: string;
-    roles: roles;
+    email?: string;
+    password?: string;
+    roles: roles[];
     profileImage: string;
     images: string[];
     description: string;
     country: country;
-    age: number;
-    deports: string[];
+    age?: number;
+    deports?: string[];
 }
 
-export interface IUserApi extends IDb, IDataUser {
-    points: number;
-    emojis: IEmoji;
+export interface IUser extends IDb, IDataUser {
+    points?: number;
+    emojis?: IEmoji;
     canUploadImages: boolean;
     IsActive: boolean;
-    donations: any;
+
+    //TODO: pendiente
+    donations?: any;
 }

@@ -9,9 +9,6 @@ export const Home = () => {
   return (
     <>
       <Hero/>
-
-      <section className="mt-32">
-      </section>
     </>
   )
 }
