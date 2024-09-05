@@ -10,7 +10,7 @@ export const Home = () => {
     <>
       <Hero/>
 
-      <section>
+      <section className="mt-32">
       </section>
     </>
   )
