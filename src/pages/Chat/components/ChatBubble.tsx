@@ -16,17 +16,19 @@ export const ChatBubble = ({ msg }: { msg: IMessage }) => {
 
   return (
     <main className='flex gap-2'>
-      <div className='rounded-full h-12 w-12'>
-        <img src={msg.user.profileImage} alt={`Image user ${msg.user.name}`} />
-      </div>
+      <form className='rounded-full h-12 w-12'>
+        <button>
+          <img src={msg.user.profileImage} alt={`Image user ${msg.user.name}`} />
+        </button>
+      </form>
 
       <div>
-        <div className='flex gap-4 items-center'>
+        <form className='flex gap-4 items-center'>
           <button className='font-medium text-sm opacity-60 hover:underline'>{msg.user.name}</button>
           <p className='text-sm opacity-60'>{formattedDate}</p>
-        </div>
+        </form>
         <p
-          className='bg-blue-500 text-white rounded-md px-2 py-1 max-w-3xl w-full'
+          className='bg-gray-500 text-white rounded-md px-4 py-3 max-w-3xl w-full'
         >{msg.content}</p>
       </div>
     </main>

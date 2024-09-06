@@ -3,7 +3,7 @@ import { IDb, IEmoji } from "./";
 
 
 export type roles = 'ADMIN' | 'USER' | 'SUPER_USER' | 'DEVELOPER';
-export type country = "MX" | "US" | "UK";
+export type country = "MX" | "US" | "UK" | "CA" | "GB" | "FR";
 
 export interface UserPreferences extends IDb {
     User: IUser;
