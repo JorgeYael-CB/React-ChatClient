@@ -13,3 +13,12 @@ export interface IMessage {
     server: any;
     emojis?: any;
 }
+
+
+export interface IMessageCreate {
+    content: string;
+    user: {
+        name: string,
+        image: string
+    };
+}

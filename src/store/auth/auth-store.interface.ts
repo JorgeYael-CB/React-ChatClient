@@ -6,5 +6,7 @@ export interface IAuthStore {
         email: string;
         id: string | number;
         jwt: string;
+        name: string;
+        image: string;
     };
 }
