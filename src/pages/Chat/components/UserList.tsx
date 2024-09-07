@@ -1,39 +1,29 @@
 import { IUser } from "@/interfaces/Api"
-import { FormEvent } from "react"
+import { FormEvent, useState } from "react"
+import { ShowProfile } from "./ShowProfile";
 
 
-export const UserList = ( {user: {
-  IsActive,
-  canUploadImages,
-  country,
-  createdAt,
-  description,
-  id,
-  images,
-  name,
-  profileImage,
-  roles,
-  updatedAt,
-  age,
-  deports,
-  donations,
-  email,
-  emojis,
-  points
-}}: {user: IUser} ) => {
+export const UserList = ( {user, user: { country, id, name, profileImage }}: {user: IUser} ) => {
 
-
+  const [showModalProfile, setShowModalProfile] = useState(false);
 
   function onSubmit( e:FormEvent<HTMLFormElement> ){
     e.preventDefault();
 
     console.log(`Diste click al usuario: ${id}`);
     //TODO: traer la data de la base de datos del usuario y mostrar el componente "ShowProfile";
+    setShowModalProfile(true);
   }
 
 
   return (
-    <form className='mx-3 my-4 flex items-center shadow-md bg-white p-3 rounded-sm' onSubmit={onSubmit}>
+    <>
+      {
+        showModalProfile
+        &&
+        <ShowProfile user={user} open onChange={ setShowModalProfile }/>
+      }
+      <form className='mx-3 my-4 flex items-center shadow-md bg-white p-3 rounded-sm' onSubmit={onSubmit}>
 
       <button type="submit">
         <img
@@ -46,6 +36,7 @@ export const UserList = ( {user: {
         <p>{country}</p>
       </div>
 
-    </form>
+      </form>
+    </>
   )
 }

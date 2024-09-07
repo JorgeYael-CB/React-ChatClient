@@ -30,24 +30,32 @@ export const Chat = () => {
         donations: 5,
         email: 'john.doe@example.com',
         id: Math.random(),
-        images: [],
+        images: [
+          "https://i.pinimg.com/236x/70/71/71/707171e258b8e7a4f875d19aa8ca31ea.jpg",
+          "https://i.pinimg.com/originals/a0/5f/35/a05f3518fdbd4d8b50279abb61c4693d.jpg",
+        ],
         IsActive: true,
         name: 'John Doe',
         roles: ['USER'],
         updatedAt: new Date(),
       },
       {
-        profileImage: 'https://randomuser.me/api/portraits/women/2.jpg',
+        profileImage: 'https://i.pinimg.com/280x280_RS/d7/63/ec/d763ecd7a81ab64aa5d401174803f4b0.jpg',
         age: 30,
         canUploadImages: true,
         country: 'CA',
         createdAt: new Date(),
-        deports: ['Tennis'],
+        deports: ['Tennis', 'Basquetbol', 'Futbol', 'Boxeo'],
         description: 'Hello! I am Jane Smith.',
         donations: 10,
         email: 'jane.smith@example.com',
         id: Math.random(),
-        images: [],
+        images: [
+          "https://androidphoria.com/wp-content/uploads/imagen-anime-bonita-para-foto-de-perfil-de-whatsapp-para-mujeres-2024.jpg",
+          "https://i.pinimg.com/236x/56/76/c8/5676c898e220849a3413de6d86242f9d.jpg",
+          "https://i.pinimg.com/280x280_RS/d7/63/ec/d763ecd7a81ab64aa5d401174803f4b0.jpg",
+          "https://i.pinimg.com/236x/db/2a/67/db2a67f87db15a085652b4672ce1cc28.jpg"
+        ],
         IsActive: true,
         name: 'Jane Smith',
         roles: ['ADMIN'],
@@ -127,14 +135,14 @@ export const Chat = () => {
     setTimeout(() => {
       setIsActiveInputMessage(true);
       setMessages( messages.filter( m => 'id' in m ));
-    }, 5000);
+    }, 2000);
   }
 
 
   return (
     <main className='h-screen grid grid-cols-4'>
       <section className="col-span-1 h-screen bg-gray-200 overflow-x-auto overflow-y-scroll">
-        <h2 className="text-white text-3xl font-bold ml-4 mt-4">User list</h2>
+        <h2 className="text-gray-700 text-3xl font-bold ml-4 mt-4">User list</h2>
 
         <div className='mt-8'>
           {

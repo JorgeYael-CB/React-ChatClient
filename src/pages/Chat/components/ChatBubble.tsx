@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { IMessage, IMessageCreate } from '../../../interfaces/Api/Message.interface';
+import { ShowProfile } from './ShowProfile';
 
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 
 export const ChatBubble = ({ msg }: Props) => {
   const [formatDate, setFormatDate] = useState<string>();
+  const [showModalProfile, setShowModalProfile] = useState(false);
 
 
 
@@ -18,29 +20,41 @@ export const ChatBubble = ({ msg }: Props) => {
     }
   }, []);
 
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setShowModalProfile(true);
+  }
+
 
   return (
     <>
       {
         'id' in msg
         ?
-        <main className='flex gap-2 my-2'>
-          <form className='rounded-full h-12 w-12'>
-            <button>
-              <img src={msg.user.profileImage} alt={`Image user ${msg.user.name}`} />
-            </button>
-          </form>
+        <>
+          {
+            showModalProfile
+            &&
+            <ShowProfile onChange={setShowModalProfile} open={showModalProfile} user={msg.user}/>
+          }
+          <form onSubmit={onSubmit} className='flex gap-2 my-2'>
+            <div className='rounded-full h-12 w-12'>
+              <button>
+                <img src={msg.user.profileImage} alt={`Image user ${msg.user.name}`} />
+              </button>
+            </div>
 
-          <div>
-            <form className='flex gap-4 items-center'>
-              <button className='font-medium text-sm opacity-60 hover:underline'>{msg.user.name}</button>
-              <p className='text-sm opacity-60'>{formatDate}</p>
-            </form>
-            <p
-              className='bg-gray-500 text-white rounded-md px-3 py-3 max-w-3xl'
-            >{msg.content}</p>
-          </div>
-        </main>
+            <div>
+              <div className='flex gap-4 items-center'>
+                <button className='font-medium text-sm opacity-60 hover:underline'>{msg.user.name}</button>
+                <p className='text-sm opacity-60'>{formatDate}</p>
+              </div>
+              <p
+                className='bg-gray-500 text-white rounded-md px-3 py-3 max-w-3xl'
+              >{msg.content}</p>
+            </div>
+          </form>
+        </>
         :
         <main className='flex gap-2 my-2 opacity-50 justify-end'>
           <div>
