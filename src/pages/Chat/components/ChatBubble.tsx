@@ -1,10 +1,10 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { IMessage, IMessageCreate } from '../../../interfaces/Api/Message.interface';
+import { IMessage, IMessageCreate, IMessageServer, styleServerMessage } from '../../../interfaces/Api/Message.interface';
 import { ShowProfile } from './ShowProfile';
 
 
 interface Props {
-  msg: IMessage | IMessageCreate;
+  msg: IMessage | IMessageCreate | IMessageServer;
 }
 
 
@@ -25,6 +25,19 @@ export const ChatBubble = ({ msg }: Props) => {
     setShowModalProfile(true);
   }
 
+  const bgColorStyle = (style: styleServerMessage): string => {
+    if( style === 'ALERT' ){
+      return 'bg-yellow-700';
+    } else if( style === 'DANGER' ){
+      return 'bg-red-700';
+    } else if( style === 'NOTIFY' ){
+      return 'bg-blue-700';
+    } else if( style === 'SUCCES' ){
+      return 'bg-green-700';
+    }
+
+    return 'bg-black'
+  }
 
   return (
     <>
@@ -55,23 +68,31 @@ export const ChatBubble = ({ msg }: Props) => {
             </div>
           </form>
         </>
-        :
-        <main className='flex gap-2 my-2 opacity-50 justify-end'>
-          <div>
-            <div className='flex gap-4 items-center'>
-              <p className='font-medium text-sm opacity-60'>{msg.user.name}</p>
+        : 'user' in msg
+          ?<main className='flex gap-2 my-2 opacity-50 justify-end'>
+            <div>
+              <div className='flex gap-4 items-center'>
+                <p className='font-medium text-sm opacity-60'>{msg.user.name}</p>
+              </div>
+              <p
+                className='bg-gray-500 text-white rounded-md px-3 py-3 max-w-3xl'
+              >{msg.content}</p>
             </div>
-            <p
-              className='bg-gray-500 text-white rounded-md px-3 py-3 max-w-3xl'
-            >{msg.content}</p>
-          </div>
 
-          <div className='rounded-full h-12 w-12'>
-            <p>
-              <img src={msg.user.image} alt={`Image user ${msg.user.name}`} />
-            </p>
+            <div className='rounded-full h-12 w-12'>
+              <p>
+                <img src={msg.user.image} alt={`Image user ${msg.user.name}`} />
+              </p>
+            </div>
+          </main>
+          :<div className={`py-1 text-white text-center font-medium text-sm rounded-md ${bgColorStyle(msg.style)}`}>
+            {
+              msg.title
+              &&
+              <h3 className='my-0.5 text-base font-bold'>{msg.title}</h3>
+            }
+            <p>{msg.content}</p>
           </div>
-        </main>
       }
     </>
   );

@@ -1,4 +1,4 @@
-import { IMessage, IMessageCreate, IUser } from "@/interfaces/Api";
+import { IMessage, IMessageCreate, IMessageServer, IUser } from "@/interfaces/Api";
 import { useEffect, useState } from "react";
 import { ChatBubble, InputMessage, UserList } from "./components";
 import { useParams } from "react-router-dom";
@@ -9,7 +9,7 @@ import { AuthStore } from "@/store";
 export const Chat = () => {
   const { id } = useParams();
   const { userData } = AuthStore();
-  const [messages, setMessages] = useState<(IMessage | IMessageCreate)[]>([]);
+  const [messages, setMessages] = useState<(IMessage | IMessageCreate | IMessageServer)[]>([]);
   const [isActiveInputMessage, setIsActiveInputMessage] = useState(true);
   const [userList, setUserList] = useState<IUser[]>([]);
 

@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input"
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { IoIosSend } from "react-icons/io"
 
 
@@ -21,13 +21,27 @@ export const InputMessage = ( {onSubmit, inputActive = true}: Props ) => {
     onSubmit(inputValue);
   }
 
+  useEffect(() => {
+    //TODO: emitir evento de si esta escribiendo o no
+    if( inputValue.trim().length > 0 ){
+      console.log('Alguien esta escribiendo');
+      return;
+    }
+
+    console.log('Alguien dejo de escribir...');
+  }, [inputValue]);
+
 
   return (
-    <form onSubmit={ onSendMessage } className="flex gap-3 items-center">
-      <Input value={inputValue} onChange={ e => setInputValue(e.target.value) } className="bg-gray-200" placeholder="Escribe un mensaje..."/>
-      <button disabled={ !inputActive } className="disabled:opacity-40">
-        <IoIosSend className="w-8 h-8 transition-colors text-blue-700 hover:text-blue-500"/>
-      </button>
-    </form>
+    <>
+      <form onSubmit={ onSendMessage }>
+        <div className="flex gap-3 items-center">
+          <Input value={inputValue} onChange={ e => setInputValue(e.target.value) } className="bg-gray-200" placeholder="Escribe un mensaje..."/>
+          <button>
+            <IoIosSend className="w-8 h-8 transition-colors text-blue-700 hover:text-blue-500"/>
+          </button>
+        </div>
+      </form>
+    </>
   )
 }

@@ -1,5 +1,9 @@
 import { IUser } from "./User.interface";
 
+
+export type styleServerMessage = 'DANGER' | 'ALERT' | 'SUCCES' | 'NOTIFY';
+
+
 export interface IMessage {
     id: string | number;
     user: IUser;
@@ -21,4 +25,11 @@ export interface IMessageCreate {
         name: string,
         image: string
     };
+}
+
+
+export interface IMessageServer {
+    content: string;
+    title?: string;
+    style: styleServerMessage;
 }
