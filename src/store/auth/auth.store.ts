@@ -5,7 +5,7 @@ import { IAuthStore } from "./auth-store.interface";
 
 export const AuthStore = create<IAuthStore>( (store) => (
     {
-        isLogged: true,
+        isLogged: false,
         userData: {
             email: 'correo@correo.com',
             id: Math.random(),

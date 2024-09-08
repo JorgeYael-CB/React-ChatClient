@@ -27,13 +27,13 @@ export const ChatBubble = ({ msg }: Props) => {
 
   const bgColorStyle = (style: styleServerMessage): string => {
     if( style === 'ALERT' ){
-      return 'bg-yellow-700';
+      return 'bg-yellow-500';
     } else if( style === 'DANGER' ){
       return 'bg-red-700';
     } else if( style === 'NOTIFY' ){
       return 'bg-blue-700';
     } else if( style === 'SUCCES' ){
-      return 'bg-green-700';
+      return 'bg-green-600';
     }
 
     return 'bg-black'
@@ -85,7 +85,7 @@ export const ChatBubble = ({ msg }: Props) => {
               </p>
             </div>
           </main>
-          :<div className={`py-1 text-white text-center font-medium text-sm rounded-md ${bgColorStyle(msg.style)}`}>
+          :<div className={`py-1.5 text-white text-center font-medium text-sm rounded-md ${bgColorStyle(msg.style)}`}>
             {
               msg.title
               &&

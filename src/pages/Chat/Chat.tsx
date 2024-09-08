@@ -16,7 +16,11 @@ export const Chat = () => {
 
   useEffect(() => {
     //TODO: obtener la data del servidor mediante el ID
-    console.log(id);
+    const serverMessage: IMessageServer = {
+      content: 'Welcome Yael!',
+      title: 'New user joined',
+      style: 'NOTIFY',
+    };
 
     setUserList([
       {
@@ -113,6 +117,8 @@ export const Chat = () => {
         updatedAt: new Date(),
       }
     ]);
+
+    setMessages( [...messages, serverMessage] );
   }, [id]);
 
 
@@ -134,7 +140,7 @@ export const Chat = () => {
 
     setTimeout(() => {
       setIsActiveInputMessage(true);
-      setMessages( messages.filter( m => 'id' in m ));
+      setMessages( messages.filter( m => 'id' && 'style' in m ));
     }, 2000);
   }
 

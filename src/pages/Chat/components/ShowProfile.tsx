@@ -53,9 +53,12 @@ export const ShowProfile = ({ open, onChange, user }: Props) => {
             alt={`User image ${user.name}`}
           />
           <p className="text-lg font-semibold text-gray-700 mb-1">{user.name}, {user.age} years old</p>
-          <p className="text-sm text-gray-500 mb-1">Country: {user.country}</p>
+          <div className="flex gap-3 items-center my-2">
+            <p className="text-sm text-gray-500 mb-1">Country: </p>
+            <img className="w-6 h-4 mt-1 mb-0.5" src={`/countrys/${user.country.toLocaleLowerCase()}.png`} alt={`country of ${user.name}`} />
+          </div>
           {user.deports && user.deports.length > 0 && (
-            <p className="text-sm text-gray-500 mb-2">Sports: {user.deports.join(", ")}</p>
+            <p className="text-sm text-blue-500 mb-2">Sports: <span className="text-gray-500">{user.deports.join(", ")}</span></p>
           )}
         </div>
         <DrawerFooter className="flex justify-center">
