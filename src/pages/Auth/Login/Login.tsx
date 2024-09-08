@@ -23,10 +23,6 @@ export const Login = () => {
     //TODO: hacer el login
   }
 
-  useEffect(() => {
-    console.log(emailValidations.errors);
-  }, [emailValidations.errors]);
-
 
   return (
     <main>

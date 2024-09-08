@@ -42,6 +42,8 @@ export const inputValue = ({ validationType = 'STRING', value, fieldName, requir
 
     if (required && value.trim().length <= 0) {
       newErrors.add(`${fieldName} is required`);
+      setErrors(Array.from(newErrors));
+      return;
     }
 
     if (validationType === 'EMAIL' && !emailPattern.test(value)) {
