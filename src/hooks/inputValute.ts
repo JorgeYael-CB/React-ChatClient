@@ -7,6 +7,8 @@ interface Props {
   validationType?: validations;
   fieldName: string;
   required?: boolean;
+  maxLength?: number;
+  minLength?:number;
 }
 
 
@@ -33,7 +35,7 @@ function validatePassword(value: string): Set<string>{
 }
 
 
-export const inputValue = ({ validationType = 'STRING', value, fieldName, required = true }: Props) => {
+export const inputValue = ({ validationType = 'STRING', value, fieldName, required = true, maxLength, minLength }: Props) => {
   const [errors, setErrors] = useState<string[]>([]);
   const [isValid, setIsValid] = useState(false);
 
@@ -44,6 +46,14 @@ export const inputValue = ({ validationType = 'STRING', value, fieldName, requir
       newErrors.add(`${fieldName} is required`);
       setErrors(Array.from(newErrors));
       return;
+    }
+
+    if( maxLength && value.trim().length >= maxLength ){
+      newErrors.add(`${fieldName} - it's too long`);
+    }
+
+    if( minLength && value.trim().length <= minLength ){
+      newErrors.add(`${fieldName} - it's too short`);
     }
 
     if (validationType === 'EMAIL' && !emailPattern.test(value)) {

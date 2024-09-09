@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthStore } from "../../../store";
 import { inputValue } from "@/hooks";
@@ -32,6 +32,7 @@ export const Login = () => {
         <h2 className="text-center font-black text-3xl mb-6">Sign in</h2>
 
         <input
+          value={email}
           onChange={ e => setEmail(e.target.value) }
           placeholder="Email address"
           className='focus:outline-2 outline-blue-600 bg-gray-200 font-medium px-3 py-1 rounded-lg w-full'
@@ -39,6 +40,7 @@ export const Login = () => {
         />
 
         <input
+          value={password}
           onChange={ e => setPassword(e.target.value) }
           placeholder="Password"
           className='focus:outline-2 outline-blue-600 bg-gray-200 font-medium px-3 py-1 rounded-lg w-full'
