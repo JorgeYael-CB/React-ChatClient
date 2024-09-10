@@ -44,7 +44,7 @@ export const UpdatedProfile = ( { user }: Props ) => {
 
   return (
     <main>
-      <h2 className="text-center text-5xl text-indigo-600 mt-16 font-bold">Actualiza tu informacion</h2>
+      <h2 className="text-center md:text-4xl text-2xl text-indigo-600 mt-8 font-bold">Actualiza tu informacion</h2>
 
       <form className="flex flex-col gap-8 px-8 py-4 mt-20 max-w-2xl mx-auto bg-white">
         <UploadImage onChangeImage={getNewProfileImage} title="Actualiza tu foto de perfil." prevImage={user.profileImage}/>

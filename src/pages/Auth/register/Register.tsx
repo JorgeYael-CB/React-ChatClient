@@ -46,7 +46,7 @@ export const Register = () => {
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [userName, setUserName] = useState('');
-  const [updatedProfile, setUpdatedProfile] = useState(true);
+  const [updatedProfile, setUpdatedProfile] = useState(false);
 
   const emailValidations = inputValue({fieldName: 'Email', value: email, validationType: 'EMAIL'});
   const passValidations = inputValue({fieldName: 'Password', value: password, validationType: 'PASSWORD'});
