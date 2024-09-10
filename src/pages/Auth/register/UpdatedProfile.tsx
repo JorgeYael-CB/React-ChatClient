@@ -1,5 +1,5 @@
 import { IUser } from "@/interfaces/Api"
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { TableDeports } from "../components";
 import { Filter } from "@/components";
@@ -91,11 +91,7 @@ export const UpdatedProfile = ( { user }: Props ) => {
           <h4 className="text-center text-2xl font-medium">⚽Actualiza tus deportes⚽</h4>
 
           <div className="w-full flex flex-col gap-1 justify-center my-4">
-            <Filter onAddValue={onAddDeport} onDeleteValue={onDeleteDeport} defaultValues={deports} values={testDeports}/>
-          </div>
-
-          <div className="flex gap-6 justify-center">
-            <TableDeports deports={ Array.from( deports ) } onDelete={onDeleteDeport}/>
+            <Filter onAddValue={onAddDeport} onDeleteValue={onDeleteDeport} title="Deports" defaultValues={deports} values={testDeports}/>
           </div>
         </div>
 
