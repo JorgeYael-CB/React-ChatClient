@@ -2,6 +2,7 @@ import { IUser } from "@/interfaces/Api"
 import { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { TableDeports } from "../components";
+import { Filter } from "@/components";
 
 
 
@@ -47,6 +48,7 @@ export const UpdatedProfile = ( { user }: Props ) => {
   }
 
 
+
   return (
     <main>
       <h2 className="text-center text-5xl text-indigo-600 mt-16 font-bold">Actualiza tu informacion</h2>
@@ -88,17 +90,8 @@ export const UpdatedProfile = ( { user }: Props ) => {
         <div>
           <h4 className="text-center text-2xl font-medium">⚽Actualiza tus deportes⚽</h4>
 
-          {/* Pendiente el autocompletado */}
           <div className="w-full flex flex-col gap-1 justify-center my-4">
-            <select onChange={ e => onAddDeport(e.target.value) } name="deportes" id="deportes">
-              {
-                testDeports.map( d => (
-                  <option key={d}>{d}</option>
-                ))
-              }
-            </select>
-
-            <input className="bg-gray-200 text-black font-semibold py-1 px-2 rounded-lg outline outline-2 outline-purple-600" type="text" />
+            <Filter onAddValue={onAddDeport} onDeleteValue={onDeleteDeport} defaultValues={deports} values={testDeports}/>
           </div>
 
           <div className="flex gap-6 justify-center">
