@@ -1,6 +1,9 @@
 import { IUser } from "@/interfaces/Api"
 import { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { TableDeports } from "../components";
+
+
 
 
 interface Props {
@@ -8,18 +11,47 @@ interface Props {
 }
 
 
+const testDeports: string[] = [
+  'futbol', 'basquetbol', 'voleibol', 'tenis', 'natación', 'atletismo', 'béisbol', 'rugby', 'ciclismo', 'boxeo',
+  'golf', 'hockey', 'esgrima', 'remo', 'surf', 'escalada', 'karate', 'judo', 'taekwondo', 'lucha libre',
+  'patinaje', 'snowboard', 'esquí', 'triatlón', 'pentatlón', 'bádminton', 'ping-pong', 'cricket', 'softbol', 'handball',
+  'waterpolo', 'polo', 'motociclismo', 'automovilismo', 'skateboarding', 'parkour', 'kickboxing', 'muay thai', 'sumo', 'kendo',
+  'lacrosse', 'floorball', 'ultimate frisbee', 'dardos', 'billar', 'bolos', 'pesca deportiva', 'tiro con arco', 'tiro deportivo', 'equitación',
+  'fútbol americano', 'balonmano', 'hockey sobre hielo', 'hockey sobre césped', 'bobsleigh', 'curling', 'rugby league', 'rugby union', 'netball', 'squash',
+  'tenis de mesa', 'badminton', 'fútbol sala', 'fútbol playa', 'kitesurf', 'windsurf', 'parapente', 'paracaidismo', 'buceo', 'espeleología',
+  'canotaje', 'kayak', 'rafting', 'vela', 'windsurf', 'kitesurf', 'bobsleigh', 'skeleton', 'luge', 'curling',
+  'esquí de fondo', 'biatlón', 'trineo', 'patinaje artístico', 'patinaje de velocidad', 'patinaje en línea', 'roller derby', 'hockey sobre patines',
+  'hockey subacuático', 'rugby subacuático','fútbol gaélico', 'hurling', 'camogie', 'shinty', 'pesäpallo', 'bandy', 'floorball', 'korfball', 'netball', 'pickleball'
+];
+
+
+
 export const UpdatedProfile = ( { user }: Props ) => {
   const [newImageProfile, setNewImageProfile] = useState('https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png');
   const inputFileRef = useRef<HTMLInputElement>(null);
+  const [deports, setDeports] = useState<Set<string>>(new Set( user.deports.map( d => d.deport.toLowerCase() ) ));
 
 
+  const onDeleteDeport = ( deport: string ) => {
+    const newDeports = new Set(deports);
+    newDeports.delete(deport);
+
+    setDeports(newDeports);
+  }
+
+  const onAddDeport = ( deport: string ) => {
+    const newDeports = new Set(deports);
+    newDeports.add(deport)
+
+    setDeports(newDeports);
+  }
 
 
   return (
     <main>
       <h2 className="text-center text-5xl text-indigo-600 mt-16 font-bold">Actualiza tu informacion</h2>
 
-      <form className="flex flex-col gap-16 px-8 py-4 mt-20 max-w-2xl mx-auto bg-white">
+      <form className="flex flex-col gap-12 px-8 py-4 mt-20 max-w-2xl mx-auto bg-white">
 
         <div className="flex flex-col gap-3">
           <h4 className="text-center text-2xl font-medium">Actualiza tu foto de perfil</h4>
@@ -51,26 +83,26 @@ export const UpdatedProfile = ( { user }: Props ) => {
           </div>
         </div>
 
+        <hr />
+
         <div>
           <h4 className="text-center text-2xl font-medium">⚽Actualiza tus deportes⚽</h4>
 
-          <select name="deportes" id="deportes">
-            <option value="futbol">Futbol</option>
-            <option value="basquetbol">basquetbol</option>
-            <option value="karate">karate</option>
-            <option value="boxeo">boxeo</option>
-          </select>
+          {/* Pendiente el autocompletado */}
+          <div className="w-full flex flex-col gap-1 justify-center my-4">
+            <select onChange={ e => onAddDeport(e.target.value) } name="deportes" id="deportes">
+              {
+                testDeports.map( d => (
+                  <option key={d}>{d}</option>
+                ))
+              }
+            </select>
 
-          <div className="flex gap-14 justify-center">
-            <ul id="misDeportes">
-              {user.deports?.map( d => (
-                <li key={d.id}>{d.deport}</li>
-              ))}
-            </ul>
+            <input className="bg-gray-200 text-black font-semibold py-1 px-2 rounded-lg outline outline-2 outline-purple-600" type="text" />
+          </div>
 
-            <ul id="nuevosDeportes">
-              <li>Boxeo</li>
-            </ul>
+          <div className="flex gap-6 justify-center">
+            <TableDeports deports={ Array.from( deports ) } onDelete={onDeleteDeport}/>
           </div>
         </div>
 

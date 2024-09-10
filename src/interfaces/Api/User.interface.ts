@@ -5,11 +5,15 @@ import { IDb, IEmoji } from "./";
 export type roles = 'ADMIN' | 'USER' | 'SUPER_USER' | 'DEVELOPER';
 export type country = "MX" | "US" | "UK" | "CA" | "GB" | "FR";
 
-export interface deport extends IDb { // relacion de muchos a muchos
+export interface IDeport extends IDb, IDeportCreacion { // relacion de muchos a muchos
+}
+
+export interface IDeportCreacion {
     deport: string;
 }
 
-export interface UserPreferences extends IDb {
+
+export interface IUserPreferences extends IDb {
     User: IUser;
     IsEdited: boolean;
     deport: string;
@@ -28,7 +32,7 @@ export interface IDataUser {
     description: string;
     country: country;
     age?: number;
-    deports?: deport[];
+    deports: IDeport[];
 }
 
 export interface IUser extends IDb, IDataUser {
