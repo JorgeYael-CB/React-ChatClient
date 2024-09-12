@@ -5,6 +5,7 @@ import { useState, FormEvent } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UpdatedProfile } from "./UpdatedProfile";
 import { IUser } from "@/interfaces/Api";
+import { getErrorsValidations, RegisterUserApi } from "@/api/auth";
 
 
 
@@ -47,18 +48,31 @@ export const Register = () => {
   const [email, setEmail] = useState<string>('');
   const [userName, setUserName] = useState('');
   const [updatedProfile, setUpdatedProfile] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const emailValidations = inputValue({fieldName: 'Email', value: email, validationType: 'EMAIL'});
   const passValidations = inputValue({fieldName: 'Password', value: password, validationType: 'PASSWORD'});
   const nameValidations = inputValue({fieldName: 'Name', value: userName, maxLength: 100, minLength: 2});
 
 
-  const onSubmit = ( e: FormEvent<HTMLFormElement> ) => {
+  const onSubmit = async( e: FormEvent<HTMLFormElement> ) => {
     e.preventDefault();
     if( isLogged ) nav('/');
+    setIsLoading(true);
 
-    //TODO: hacer la creacion de la cuenta.
+    const data = await RegisterUserApi({email, name: userName, password});
+    setIsLoading(false);
 
+    if( data.errors ){
+      setErrors(getErrorsValidations(data.errors));
+      return;
+    } else if( data.error ){
+      setErrors([data.error]);
+      return;
+    }
+
+    console.log("Nuevo usuario registrado");
 
     //TODO: mostrar el modal para actualizar su perfil
     setUpdatedProfile(true);
@@ -117,9 +131,15 @@ export const Register = () => {
             </p>
 
             <button
-              disabled={!passValidations.isValid || !emailValidations.isValid}
+              disabled={!passValidations.isValid || !emailValidations.isValid || isLoading}
               className='w-full bg-black rounded-lg text-white px-3 py-1.5 font-semibold text-lg transition-colors hover:bg-gray-800 disabled:opacity-20'
             >Sign up</button>
+
+            {
+              errors.length > 0
+                &&
+              <Errors errors={errors}/>
+            }
           </form>
         </main>
         : <UpdatedProfile user={testUser}/>

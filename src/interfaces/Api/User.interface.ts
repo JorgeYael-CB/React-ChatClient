@@ -44,3 +44,5 @@ export interface IUser extends IDb, IDataUser {
     //TODO: pendiente
     donations?: any;
 }
+
+

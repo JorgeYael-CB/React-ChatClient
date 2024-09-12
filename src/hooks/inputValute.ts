@@ -19,11 +19,11 @@ function validatePassword(value: string): Set<string>{
   const errors: Set<string> = new Set();
   const valueMapper = value.trim() || '';
 
-  if( valueMapper.length < 4 ){
+  if( valueMapper.length <= 4 ){
     errors.add("Password is too short");
   }
 
-  if( valueMapper.length > 60 ){
+  if( valueMapper.length >= 50 ){
     errors.add("Password is too long");
   }
 
