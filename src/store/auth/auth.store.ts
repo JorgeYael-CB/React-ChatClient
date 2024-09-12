@@ -1,17 +1,23 @@
 import { create } from "zustand";
 import { IAuthStore } from "./auth-store.interface";
+import { persist } from "zustand/middleware";
 
 
 
-export const AuthStore = create<IAuthStore>( (store) => (
-    {
-        isLogged: false,
-        userData: {
-            email: 'correo@correo.com',
-            id: Math.random(),
-            image: 'https://t3.ftcdn.net/jpg/05/87/76/66/360_F_587766653_PkBNyGx7mQh9l1XXPtCAq1lBgOsLl6xH.jpg',
-            jwt: '123',
-            name: 'Un usuario de prueba'
-        }
+export const AuthStore = create( persist<IAuthStore>( set => ({
+    isLogged: false,
+    login( user, token ){
+        set(({
+            isLogged: true,
+            userData: {
+                email: user.email!,
+                id: user.id,
+                image: user.profileImage,
+                jwt: token,
+                name: user.name
+            },
+        }))
     }
-))
+}), {
+    name: 'global-chat'
+}));

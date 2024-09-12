@@ -1,3 +1,4 @@
+import { IUser } from '../../interfaces/Api';
 
 
 export interface IAuthStore {
@@ -9,4 +10,6 @@ export interface IAuthStore {
         name: string;
         image: string;
     };
+
+    login: ( user:IUser, token: string ) => void;
 }

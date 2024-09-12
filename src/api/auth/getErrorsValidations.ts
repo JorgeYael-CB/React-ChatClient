@@ -1,5 +1,13 @@
 
-export const getErrorsValidations = ( errors: { [key:string]: string[] } ): string[] => {
+export const getErrorsValidations = ( error?: string, errors?: { [key:string]: string[] } ): string[] => {
+    if( error ){
+        return [error];
+    }
+
+    if( !errors ){
+        return ['Unexpected error, please try again later'];
+    }
+
     let errorsString: string[] = [];
 
     for( let error in errors ){

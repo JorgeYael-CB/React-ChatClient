@@ -42,7 +42,7 @@ const testUser:IUser = {
 
 
 export const Register = () => {
-  const { isLogged } = AuthStore();
+  const { isLogged, login } = AuthStore();
   const nav = useNavigate();
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -64,15 +64,12 @@ export const Register = () => {
     const data = await RegisterUserApi({email, name: userName, password});
     setIsLoading(false);
 
-    if( data.errors ){
-      setErrors(getErrorsValidations(data.errors));
-      return;
-    } else if( data.error ){
-      setErrors([data.error]);
+    if( data.error || data.errors || !data.user || !data.token ){
+      setErrors(getErrorsValidations(data.error, data.errors));
       return;
     }
 
-    console.log("Nuevo usuario registrado");
+    login(data.user, data.token);
 
     //TODO: mostrar el modal para actualizar su perfil
     setUpdatedProfile(true);
