@@ -47,7 +47,6 @@ export const Register = () => {
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [userName, setUserName] = useState('');
-  const [updatedProfile, setUpdatedProfile] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -71,76 +70,70 @@ export const Register = () => {
 
     login(data.user, data.token);
 
-    //TODO: mostrar el modal para actualizar su perfil
-    setUpdatedProfile(true);
+    nav('/profile');
   }
 
 
   return (
     <>
-      {
-        !updatedProfile
-        ?
-        <main>
-          <h2 className="font-black text-center mt-40 mb-16 text-5xl">Create account</h2>
+      <main>
+        <h2 className="font-black text-center mt-40 mb-16 text-5xl">Create account</h2>
 
-          <form onSubmit={onSubmit} className="max-w-lg mx-auto flex flex-col gap-5 px-8 py-8 bg-white shadow-md rounded-lg">
-            <h2 className="text-center font-black text-3xl mb-6">Sign up</h2>
+        <form onSubmit={onSubmit} className="max-w-lg mx-auto flex flex-col gap-5 px-8 py-8 bg-white shadow-md rounded-lg">
+          <h2 className="text-center font-black text-3xl mb-6">Sign up</h2>
 
-            <div className="flex flex-col gap-1.5">
-              <input
-                onChange={ e => setUserName(e.target.value) }
-                placeholder="User name"
-                className='focus:outline-2 outline-blue-600 bg-gray-200 font-medium px-3 py-1 rounded-lg w-full'
-                type="text"
-                value={userName}
-              />
-              <Errors errors={nameValidations.errors}/>
-            </div>
+          <div className="flex flex-col gap-1.5">
+            <input
+              onChange={ e => setUserName(e.target.value) }
+              placeholder="User name"
+              className='focus:outline-2 outline-blue-600 bg-gray-200 font-medium px-3 py-1 rounded-lg w-full'
+              type="text"
+              value={userName}
+            />
+            <Errors errors={nameValidations.errors}/>
+          </div>
 
-            <div className="flex flex-col gap-1.5">
-              <input
-                value={email}
-                onChange={ e => setEmail(e.target.value) }
-                placeholder="Email address"
-                className='focus:outline-2 outline-blue-600 bg-gray-200 font-medium px-3 py-1 rounded-lg w-full'
-                type="email"
-              />
-              <Errors errors={emailValidations.errors}/>
-            </div>
+          <div className="flex flex-col gap-1.5">
+            <input
+              value={email}
+              onChange={ e => setEmail(e.target.value) }
+              placeholder="Email address"
+              className='focus:outline-2 outline-blue-600 bg-gray-200 font-medium px-3 py-1 rounded-lg w-full'
+              type="email"
+            />
+            <Errors errors={emailValidations.errors}/>
+          </div>
 
-            <div className="flex flex-col gap-1.5">
-              <input
-                value={password}
-                onChange={ e => setPassword(e.target.value) }
-                placeholder="Password"
-                className='focus:outline-2 outline-blue-600 bg-gray-200 font-medium px-3 py-1 rounded-lg w-full'
-                type="password"
-              />
-              <Errors errors={passValidations.errors}/>
-            </div>
+          <div className="flex flex-col gap-1.5">
+            <input
+              value={password}
+              onChange={ e => setPassword(e.target.value) }
+              placeholder="Password"
+              className='focus:outline-2 outline-blue-600 bg-gray-200 font-medium px-3 py-1 rounded-lg w-full'
+              type="password"
+            />
+            <Errors errors={passValidations.errors}/>
+          </div>
 
-            <hr/>
+          <hr/>
 
-            <p className="text-center">
-              Ya tienes una cuenta?{' '}
-              <NavLink to='/auth/login' className='text-blue-600 underline'>Inicia sesion</NavLink>
-            </p>
+          <p className="text-center">
+            Ya tienes una cuenta?{' '}
+            <NavLink to='/auth/login' className='text-blue-600 underline'>Inicia sesion</NavLink>
+          </p>
 
-            <button
-              disabled={!passValidations.isValid || !emailValidations.isValid || isLoading}
-              className='w-full bg-black rounded-lg text-white px-3 py-1.5 font-semibold text-lg transition-colors hover:bg-gray-800 disabled:opacity-20'
-            >Sign up</button>
+          <button
+            disabled={!passValidations.isValid || !emailValidations.isValid || isLoading}
+            className='w-full bg-black rounded-lg text-white px-3 py-1.5 font-semibold text-lg transition-colors hover:bg-gray-800 disabled:opacity-20'
+          >Sign up</button>
 
-            {
-              errors.length > 0
-                &&
-              <Errors errors={errors}/>
-            }
-          </form>
-        </main>
-        : <UpdatedProfile user={testUser}/>
-      }
+          {
+            errors.length > 0
+              &&
+            <Errors errors={errors}/>
+          }
+        </form>
+      </main>
     </>
   )
 }

@@ -1,20 +1,10 @@
-import { IUser } from "@/interfaces/Api"
 import { IRegisterUser } from "../interfaces";
 import { envs } from "@/config";
+import { IResponseAuth } from "./interfaces/IResponseAuth";
 
 
-interface Props {
-    token?: string,
-    user?: IUser,
-    status: number;
-    errors?: {
-        [key: string]: string[];
-    };
-    error?: string;
-}
 
-
-export const RegisterUserApi = async( user: IRegisterUser ): Promise<Props> => {
+export const RegisterUserApi = async( user: IRegisterUser ): Promise<IResponseAuth> => {
     try {
         const url = `${envs.api}/auth`;
         console.log(user);

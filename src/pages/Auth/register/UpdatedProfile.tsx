@@ -1,5 +1,5 @@
 import { IUser } from "@/interfaces/Api"
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Filter } from "@/components";
 import { UploadImage } from "@/components/forms";
@@ -12,32 +12,37 @@ interface Props {
 }
 
 
-const testDeports: string[] = ['futbol', 'basquetbol', 'voleibol', 'tenis', 'natación'];
+const testActivities: string[] = ['futbol', 'basquetbol', 'voleibol', 'tenis', 'natación'];
 
 
 
 export const UpdatedProfile = ( { user }: Props ) => {
-  const [deports, setDeports] = useState<Set<string>>(new Set( user.deports.map( d => d.deport.toLowerCase() ) ));
+  const [activities, setActivities] = useState<Set<string>>(new Set( user.activities.map( d => d.deport.toLowerCase() ) ));
   const [imageProfile, setImageProfile] = useState<string>();
+  const [fileImage, setFileImage] = useState<File>();
 
 
   const onDeleteDeport = ( deport: string ) => {
-    const newDeports = new Set(deports);
-    newDeports.delete(deport);
+    const newActivity = new Set(activities);
+    newActivity.delete(deport);
 
-    setDeports(newDeports);
+    setActivities(newActivity);
   }
 
   const onAddDeport = ( deport: string ) => {
-    const newDeports = new Set(deports);
-    newDeports.add(deport)
+    const newActivity = new Set(activities);
+    newActivity.add(deport)
 
-    setDeports(newDeports);
+    setActivities(newActivity);
   }
 
   const getNewProfileImage = (img: string, file:File) => {
-    console.log({file, img});
+    setFileImage(file);
     setImageProfile(img);
+  }
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
   }
 
 
@@ -46,7 +51,7 @@ export const UpdatedProfile = ( { user }: Props ) => {
     <main>
       <h2 className="text-center md:text-4xl text-2xl text-indigo-600 mt-8 font-bold">Actualiza tu informacion</h2>
 
-      <form className="flex flex-col gap-8 px-8 py-4 mt-20 max-w-2xl mx-auto bg-white">
+      <form onSubmit={ onSubmit } className="flex flex-col gap-8 px-8 py-4 mt-20 max-w-2xl mx-auto bg-white">
         <UploadImage onChangeImage={getNewProfileImage} title="Actualiza tu foto de perfil." prevImage={user.profileImage}/>
         <hr />
 
@@ -54,7 +59,7 @@ export const UpdatedProfile = ( { user }: Props ) => {
           <h4 className="text-center text-2xl font-medium">⚽Actualiza tus deportes⚽</h4>
 
           <div className="w-full flex flex-col gap-1 justify-center my-4">
-            <Filter onAddValue={onAddDeport} onDeleteValue={onDeleteDeport} title="Deports" defaultValues={deports} values={testDeports}/>
+            <Filter onAddValue={onAddDeport} onDeleteValue={onDeleteDeport} title="Activities" defaultValues={activities} values={testActivities}/>
           </div>
         </div>
 

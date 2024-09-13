@@ -7,6 +7,7 @@ import { NavBar } from "../components";
 import { Faq } from "./Faq";
 import { Privacy } from "./Privacy";
 import { AuthChat, Chat } from "./Chat";
+import { UpdateProfile } from "./account/UpdateProfile";
 
 
 
@@ -52,7 +53,12 @@ export const routesChat: IRoute [] = [
         element: <Chat/>,
         path: '/chat/:id',
         title: 'Chat'
-    }
+    },
+    {
+        element: <UpdateProfile/>,
+        path: '/profile',
+        title: 'profile'
+    },
 ];
 
 
@@ -69,7 +75,7 @@ export const router = createBrowserRouter([
         children: routesAuth
     },
     {
-        path: '/chat',
+        path: '',
         element: <AuthChat/>,
         children: routesChat
     }
