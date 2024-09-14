@@ -1,8 +1,11 @@
 import { IUser } from "@/interfaces/Api"
 import { FormEvent, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Filter } from "@/components";
-import { UploadImage } from "@/components/forms";
+import { Errors, UploadImage } from "@/components/forms";
+import { UpdateAccount } from "@/api/auth/updateAccount";
+import { IUpdateUser } from "@/api/auth/interfaces";
+import { getErrorsValidations } from "@/api/auth";
 
 
 
@@ -17,9 +20,12 @@ const testActivities: string[] = ['futbol', 'basquetbol', 'voleibol', 'tenis', '
 
 
 export const UpdatedProfile = ( { user }: Props ) => {
-  const [activities, setActivities] = useState<Set<string>>(new Set( user.activities.map( d => d.deport.toLowerCase() ) ));
-  const [imageProfile, setImageProfile] = useState<string>();
+  const [activities, setActivities] = useState<Set<string>>(new Set( user.activities.map( d => d.activity.toLowerCase() ) ));
   const [fileImage, setFileImage] = useState<File>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
+  const nav = useNavigate();
+
 
 
   const onDeleteDeport = ( deport: string ) => {
@@ -36,13 +42,28 @@ export const UpdatedProfile = ( { user }: Props ) => {
     setActivities(newActivity);
   }
 
-  const getNewProfileImage = (img: string, file:File) => {
+  const getNewProfileImage = (_: string, file:File) => {
     setFileImage(file);
-    setImageProfile(img);
   }
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    //TODO: actualizar el perfil.
+    setIsLoading(true);
+    const profile: IUpdateUser = {
+      profileImage: fileImage
+    };
+
+    const data = await UpdateAccount({data:profile, id: user.id});
+    setIsLoading(false);
+
+    if( data.error || data.errors ){
+      setErrors(getErrorsValidations(data.error, data.errors));
+      return;
+    }
+
+    nav('/');
   }
 
 
@@ -58,15 +79,22 @@ export const UpdatedProfile = ( { user }: Props ) => {
         <div>
           <h4 className="text-center text-2xl font-medium">⚽Actualiza tus deportes⚽</h4>
 
-          <div className="w-full flex flex-col gap-1 justify-center my-4">
+          <div className="w-full flex flex-col gap-1 justify-center mt-4 mb-2">
             <Filter onAddValue={onAddDeport} onDeleteValue={onDeleteDeport} title="Activities" defaultValues={activities} values={testActivities}/>
           </div>
         </div>
 
+        {
+          errors.length > 0
+          &&
+          <Errors errors={errors}/>
+        }
 
-        <div className="flex flex-row items-center justify-center gap-7 mt-4">
+        <div className="flex flex-row items-center justify-center gap-7 mt-3">
           <NavLink className='bg-red-500 transition-colors hover:bg-red-600 text-white font-semibold px-4 rounded-md py-1' to='/'>Cancelar</NavLink>
-          <button className='bg-green-500 transition-colors hover:bg-green-600 text-white font-semibold px-4 rounded-md py-1'>Update</button>
+          <button
+            disabled={isLoading}
+            className='bg-green-500 transition-colors hover:bg-green-600 text-white font-semibold px-4 rounded-md py-1 disabled:opacity-30'>Update</button>
         </div>
       </form>
     </main>

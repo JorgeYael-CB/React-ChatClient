@@ -56,7 +56,7 @@ export const UploadImage = ( { defaultImage = imgDefault, prevImage, title, onCh
           <p className="text-center text-sm">Previus image</p>
           <img
             className="w-52 h-56 transition-all border p-4 bg-white rounded-sm mx-auto"
-            src={`${prevImage}`}
+            src={prevImage}
             alt={`Profile image ${prevImage}`}
           />
         </div>

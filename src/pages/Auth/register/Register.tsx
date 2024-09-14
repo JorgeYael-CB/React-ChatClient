@@ -3,7 +3,6 @@ import { inputValue } from "@/hooks";
 import { AuthStore } from "@/store";
 import { useState, FormEvent } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { UpdatedProfile } from "./UpdatedProfile";
 import { IUser } from "@/interfaces/Api";
 import { getErrorsValidations, RegisterUserApi } from "@/api/auth";
 
@@ -23,7 +22,7 @@ const testUser:IUser = {
   roles: ['USER', 'ADMIN'],
   updatedAt: new Date(),
   age: 18,
-  deports: [
+  activities: [
     {
       createdAt: new Date(),
       deport: 'Basquetbol',
@@ -69,8 +68,6 @@ export const Register = () => {
     }
 
     login(data.user, data.token);
-
-    nav('/profile');
   }
 
 

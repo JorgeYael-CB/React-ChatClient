@@ -1,11 +1,15 @@
 import { NavLink } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
+import { AuthStore } from "@/store";
 
 // TODO: icons-url = https://react-icons.github.io/react-icons/
 
 
 
 export const Hero = () => {
+  const { isLogged } = AuthStore();
+
+
   return (
     <section className="p-6 bg-white">
       <div className="text-center mt-16 mb-8">
@@ -21,7 +25,7 @@ export const Hero = () => {
 
       <div className="mb-6 flex justify-center gap-6">
         <NavLink
-          to='/auth/login'
+          to={`${isLogged? '/chat' : '/auth/login'}`}
           className="bg-blue-600 text-white font-semibold text-center rounded-lg px-4 py-1 transition-colors hover:bg-blue-700"
         >
           Start <FaArrowRight className="inline ml-0.5" />

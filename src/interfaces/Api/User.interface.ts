@@ -5,18 +5,16 @@ import { IDb, IEmoji } from "./";
 export type roles = 'ADMIN' | 'USER' | 'SUPER_USER' | 'DEVELOPER';
 export type country = "MX" | "US" | "UK" | "CA" | "GB" | "FR";
 
-export interface IActivity extends IDb, IActivityCreation { // relacion de muchos a muchos
+export interface IActivity extends IDb { // relacion de muchos a muchos
+    activity: string;
 }
 
-export interface IActivityCreation {
-    deport: string;
-}
 
 
 export interface IUserPreferences extends IDb {
     User: IUser;
     IsEdited: boolean;
-    deport: string;
+    activity: string;
     country: country;
     lenguaje: string;
     age: number;
@@ -28,8 +26,8 @@ export interface IDataUser {
     password?: string;
     roles: roles[];
     profileImage: string;
-    images: string[];
-    description: string;
+    images?: string[];
+    description?: string;
     country: country;
     age?: number;
     activities: IActivity[];

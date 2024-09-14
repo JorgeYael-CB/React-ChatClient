@@ -8,6 +8,7 @@ import { Faq } from "./Faq";
 import { Privacy } from "./Privacy";
 import { AuthChat, Chat } from "./Chat";
 import { UpdateProfile } from "./account/UpdateProfile";
+import { JoinChat } from "./Chat/JoinChat";
 
 
 

@@ -1,6 +1,5 @@
-import { IRegisterUser } from "../interfaces";
+import { IRegisterUser, IResponseAuth } from "./interfaces";
 import { envs } from "@/config";
-import { IResponseAuth } from "./interfaces/IResponseAuth";
 
 
 
